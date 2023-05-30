@@ -7,7 +7,7 @@ screen_size = (800, 600)
 screen = pygame.display.set_mode(screen_size)
 
 # display title and icon setup
-pygame.display.set_caption("Lesson3: Controlling Player Movement")
+pygame.display.set_caption("Lesson04: limiting player movement and firing bullet ")
 icon_img = pygame.image.load('icon.png')
 pygame.display.set_icon(icon_img)
 
