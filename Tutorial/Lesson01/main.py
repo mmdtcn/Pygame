@@ -31,4 +31,4 @@ while running:
     screen.blit(background_img,(0,0))
     pygame.display.update()
 
-pygame.quit()
+quit()
