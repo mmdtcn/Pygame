@@ -20,7 +20,8 @@ response=input("Enter the words")
 end_time=time.time()
 
 if sentence==response:
-    print(f"Elapsed seconds {end_time - start_time}")
-    print(f"WPM: {len(sentence)/5}")
+    elapsed_seconds=end_time - start_time
+    print(f"Elapsed seconds {elapsed_seconds}")
+    print(f"WPM: {(len(sentence)/5)/elapsed_seconds}")
 else:
     print("You need to practice more!")
