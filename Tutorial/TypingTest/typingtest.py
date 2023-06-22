@@ -22,6 +22,6 @@ end_time=time.time()
 if sentence==response:
     elapsed_seconds=end_time - start_time
     print(f"Elapsed seconds {elapsed_seconds}")
-    print(f"WPM: {(len(sentence)/5)/elapsed_seconds}")
+    print(f"WPM: {(len(sentence)/5)/elapsed_seconds*60}")
 else:
     print("You need to practice more!")
