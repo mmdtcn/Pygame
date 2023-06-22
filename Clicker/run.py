@@ -3,13 +3,14 @@
 import pygame
 # Import random for random numbers
 import random
-# Import time to get the current current time
+# Import time to get the current time
 import time
 
 
             
 # Import pygame.locals for easier access to key coordinates
-from pygame.locals import (
+# Updated to conform to flake8 and black standards
+'''from pygame.locals import (
     K_UP,
     K_DOWN,
     K_LEFT,
@@ -17,12 +18,12 @@ from pygame.locals import (
     K_ESCAPE,
     KEYDOWN,
     QUIT,
-)
+)'''
 
 
 # Initialize pygame
 pygame.init()
-pygame.font.init()
+#pygame.font.init()
 
 
 
@@ -48,19 +49,22 @@ while running:
     # Look at every event in the queue
     for event in pygame.event.get():
         # Did the user hit a key?
-        if event.type == KEYDOWN:
+        if event.type == pygame.KEYDOWN:
             # Was it the Escape key? If so, stop the loop.
-            if event.key == K_ESCAPE:
+            if event.key == pygame.K_ESCAPE:
                 running = False
         elif event.type == pygame.MOUSEBUTTONUP:
             #pos = pygame.mouse.get_pos()
             if count == 0:
                 start_time = time.time()
             count += 1
+            r = random.randint(0,255)
+            g = random.randint(0,255)
+            b = random.randint(0,255)
             print(count)
 
         # Did the user click the window close button? If so, stop the loop.
-        elif event.type == QUIT:
+        elif event.type == pygame.QUIT:
             running = False
 
     if count > 10:
@@ -73,7 +77,8 @@ while running:
         # Fill the screen with white
         screen.fill((255, 255, 255))
     else:
-        screen.fill((255, 0, 0))
+        
+        screen.fill((r, g, b))
 
     
     # Update the display
