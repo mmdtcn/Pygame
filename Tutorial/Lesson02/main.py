@@ -30,6 +30,15 @@ r_circle = 10
 
 vel_circle_y = 3
 
+'''
+#Additional Circle
+x1_circle = 40
+y1_circle = 40
+r1_circle = 50
+'''
+
+
+
 # font setup for text
 fg_color = (0, 255, 0)
 bg_color = (0, 0, 128)
@@ -42,8 +51,10 @@ UIndy_textRect = UIndy_text.get_rect()
 UIndy_textRect.center = (380, 50)
 
 
-movement_circle = 'LR'
-movement_rect = 'DU'
+movement_circle = 'DU'
+movement_rect = 'LR'
+#movement_circle1='LD'
+
 
 running = True
 
@@ -60,6 +71,7 @@ while running:
     screen.blit(UIndy_text, UIndy_textRect)
     pygame.draw.rect(screen, (0, 0, 255), [x_rect, y_rect, w_rect, h_rect], 0)
     pygame.draw.circle(screen, (255, 255, 0), (x_circle, y_circle), 10, 0)
+    #pygame.draw.circle(screen, (255, 255, 255), (x1_circle, y1_circle), r1_circle, 0)
 
     if x_rect < width-1 and movement_rect == 'LR':
         x_rect += vel_rect_x
@@ -71,16 +83,30 @@ while running:
     else:
         movement_rect = 'LR'
 
-    if y_circle < height-20 and movement_circle == 'DU':
+    if y_circle < height-20 and movement_circle == 'UD':
         y_circle += vel_circle_y
-    else:
-        movement_circle = 'UD'
-
-    if y_circle > 100 and movement_circle == 'UD':
-        y_circle -= vel_circle_y
     else:
         movement_circle = 'DU'
 
+    if y_circle > 100 and movement_circle == 'DU':
+        y_circle -= vel_circle_y
+    else:
+        movement_circle = 'UD'
+    '''
+    if y1_circle < height-20 and movement_circle1 == 'LD':
+        x1_circle += vel_circle_y
+        y1_circle += vel_circle_y
+
+    else:
+        movement_circle1 = 'RU'
+
+    if y1_circle > 100 and movement_circle1 == 'RU':
+        x1_circle -= vel_circle_y
+        y1_circle -= vel_circle_y
+    else:
+        movement_circle1 = 'LD'
+    '''
+
     pygame.display.update()
 
-quit()
+pygame.quit()
