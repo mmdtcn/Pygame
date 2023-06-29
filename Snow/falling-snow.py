@@ -17,15 +17,19 @@ class Flake(pygame.sprite.Sprite):
         self.surf = pygame.image.load("flake-small.png").convert_alpha()
         #self.surf.fill((255, 255, 255))
         self.rect = self.surf.get_rect(
-            center=(SCREEN_WIDTH/2 , 
-                    SCREEN_HEIGHT/2 )
+            #center=(SCREEN_WIDTH/2 , 
+            #        SCREEN_HEIGHT/2 )
+            center=(random.randint(0,SCREEN_WIDTH) , 
+                    random.randint(0,SCREEN_HEIGHT) )
         )
-        self.xspeed = random.random() * 10 - 5.0 #random.randint(-5,5)
-        self.yspeed = random.random() * 10 - 5.0 #random.randint(-5,5)
+        self.xspeed = random.random() * 5 - 2 #random.randint(-5,5)
+        self.yspeed = random.random() * 5 - 2 #random.randint(-5,5)
+        self.gravity = 0
 
 
     def update(self):
-        self.rect.move_ip(int(self.xspeed), int(self.yspeed))
+        self.rect.move_ip(int(self.xspeed), int(self.yspeed + self.gravity))
+        self.gravity += 0.1
         if self.rect.left < 0 or self.rect.left > SCREEN_WIDTH or self.rect.bottom < 0 or self.rect.bottom > SCREEN_HEIGHT:
             self.kill()
         # Remove snowflakes that don't move
@@ -33,6 +37,7 @@ class Flake(pygame.sprite.Sprite):
             self.kill()
 
         
+
 # Initialize pygame
 pygame.init()
 pygame.font.init()
