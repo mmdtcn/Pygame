@@ -12,7 +12,7 @@ screen_size = (screen_width, screen_height)
 screen = pygame.display.set_mode(screen_size)
 
 # display title and icon setup
-pygame.display.set_caption("Lesson5: Adding second player, collision detection")
+pygame.display.set_caption("Lesson6: Moving the second player and shooting the bullet")
 icon_img = pygame.image.load('icon.png')
 pygame.display.set_icon(icon_img)
 
