@@ -189,7 +189,7 @@ while running:
        
         if bullet1_x > Player2_X:
             pl1_state = 'ready'
-            print("Player 1: The fire status is: " + collision_text)
+            print("Player 1: " + collision_text)
     
      # Player 2: if it is in fire state, bullet should be drawn and its trajectories get updated
     if pl2_state == 'fire':
@@ -198,9 +198,9 @@ while running:
         # we add 32 pixels as half of the player dimension to compare bullet location with center of the player
         collision_text = collision(Player1_X+32, Player1_Y+32, bullet2_x, bullet2_y)
     
-        if bullet2_x < Player1_X:
+        if bullet2_x < Player1_X+60:
             pl2_state = 'ready'
-            print("Player 2: The fire status is: " + collision_text)
+            print("Player 2: " + collision_text)
 
 
     pygame.display.update()
