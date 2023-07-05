@@ -26,6 +26,12 @@ bg_color = (255, 255, 255)
 mixer.music.load('background.wav')
 mixer.music.play(-1)
 
+
+# font setup for text
+my_font = pygame.font.Font('freesansbold.ttf', 32)
+
+
+
 # Define border line
 Color_line = (128, 128, 255)
 
@@ -87,6 +93,23 @@ def fire_bullet(X, Y, player):
         bullet_color=(0,255,255)
     pygame.draw.circle(screen, bullet_color, (X, Y), r_bullet, 0)
 
+def show_score():
+    player1_text = my_font.render('P1 Score: '+str(score_player1), True, (255,255,0))
+    player2_text = my_font.render('P2 Score: '+str(score_player2), True, (0,255,255))
+
+    # text surface object
+    player1_textRect = player1_text.get_rect()
+    # set the center of the rectangular object.
+    player1_textRect.center = (250, 18)
+
+    # text surface object
+    player2_textRect = player2_text.get_rect()
+    # set the center of the rectangular object.
+    player2_textRect.center = (900, 18)
+    screen.blit(player1_text,player1_textRect)
+    screen.blit(player2_text,player2_textRect)
+
+
 
 running = True
 
@@ -147,6 +170,8 @@ while running:
 
     screen.fill(bg_color)
     screen.blit(bg_img, (0, 0))
+    show_score()
+    
     # draw borderline
     pygame.draw.line(screen, Color_line, (x11_border, y11_border), (x12_border, y12_border), 3)
     pygame.draw.line(screen, Color_line, (x21_border, y21_border), (x22_border, y22_border), 3)
@@ -155,7 +180,6 @@ while running:
 
     Player2_X += Player2X_Change
     Player2_Y += Player2Y_Change
-
     
     # First Player
     # Limit the x movements to the borderline
