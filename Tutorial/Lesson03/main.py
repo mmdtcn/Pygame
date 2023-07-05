@@ -17,6 +17,19 @@ bg_img = pygame.image.load('background.jpg')
 bg_img = pygame.transform.scale(bg_img, screen_size)
 bg_color = (255, 255, 255)
 
+
+# font setup for text
+fg_color = (0, 255, 0)
+bg_color = (0, 0, 128)
+my_font = pygame.font.Font('freesansbold.ttf', 32)
+my_text = my_font.render('Welcome to My Game', True, fg_color, bg_color)
+
+# text surface object
+my_textRect = my_text.get_rect()
+# set the center of the rectangular object.
+my_textRect.center = (380, 50)
+
+
 # player img
 player_img = pygame.image.load('spaceship.png')
 
@@ -56,6 +69,7 @@ while running:
 
     screen.fill(bg_color)
     screen.blit(bg_img, (0, 0))
+    screen.blit(my_text, my_textRect)
     Player_X += PlayerX_Change
     Player_Y += PlayerY_Change
     player(Player_X, Player_Y)

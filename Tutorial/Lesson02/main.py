@@ -57,6 +57,7 @@ movement_rect = 'LR'
 
 
 running = True
+i = 0
 
 while running:
     # creates time delay of 10ms
@@ -69,10 +70,11 @@ while running:
     screen.blit(bg_img, (0, 0))
     screen.blit(UIndy_img_logo, (40, 2))
     screen.blit(UIndy_text, UIndy_textRect)
-    pygame.draw.rect(screen, (0, 0, 255), [x_rect, y_rect, w_rect, h_rect], 0)
-    pygame.draw.circle(screen, (255, 255, 0), (x_circle, y_circle), 10, 0)
+    pygame.draw.rect(screen, (255, 0, 0), [x_rect, y_rect, w_rect, h_rect])
+    pygame.draw.circle(screen, (255, 255, 0), (x_circle, y_circle), 10)
     #pygame.draw.circle(screen, (255, 255, 255), (x1_circle, y1_circle), r1_circle, 0)
-
+    
+   
     if x_rect < width-1 and movement_rect == 'LR':
         x_rect += vel_rect_x
     else:
