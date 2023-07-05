@@ -1,18 +1,18 @@
 import math
 import pygame
+from pygame import mixer
+
 
 pygame.init()
 
-
-
 screen_width = 1200
 screen_height = 600
-# screen setup
+# screen setups
 screen_size = (screen_width, screen_height)
 screen = pygame.display.set_mode(screen_size)
 
 # display title and icon setup
-pygame.display.set_caption("Lesson5: Adding second player, collision detection")
+pygame.display.set_caption("Lesson7: Adding sound and score text")
 icon_img = pygame.image.load('icon.png')
 pygame.display.set_icon(icon_img)
 
@@ -22,6 +22,9 @@ bg_img = pygame.image.load('background.jpg')
 bg_img = pygame.transform.scale(bg_img, screen_size)
 bg_color = (255, 255, 255)
 
+# background music
+mixer.music.load('background.wav')
+mixer.music.play(-1)
 
 # Define border line
 Color_line = (128, 128, 255)
@@ -76,11 +79,13 @@ def player(X, Y, player):
     screen.blit(player, (X, Y))
 
 def fire_bullet(X, Y, player):
-    pygame.draw.circle(screen, (255, 255, 0), (X, Y), r_bullet, 0)
     if player == 'PL1':
         pl1_state = 'fire'
+        bullet_color=(255,255,0)
     elif player == 'PL2':
         pl2_state ='fire'
+        bullet_color=(0,255,255)
+    pygame.draw.circle(screen, bullet_color, (X, Y), r_bullet, 0)
 
 
 running = True
@@ -91,6 +96,11 @@ Player1_Y = 270
 
 Player2_X = screen_width-80
 Player2_Y = 270
+
+# Keep score of players
+score_player1=0
+score_player2=0
+
 
 while running:
     for event in pygame.event.get():
@@ -107,6 +117,8 @@ while running:
             if event.key == pygame.K_DOWN:
                 Player1Y_Change += 1
             if event.key == pygame.K_SPACE and pl1_state == 'ready':
+                bullet_sound=mixer.Sound('laser.wav')
+                bullet_sound.play()
                 pl1_state = 'fire'
             # Second Player Key Events
             if event.key == pygame.K_KP6:
@@ -118,6 +130,8 @@ while running:
             if event.key == pygame.K_KP2:
                 Player2Y_Change += 1
             if event.key == pygame.K_KP7 and pl2_state == 'ready':
+                bullet_sound=mixer.Sound('laser.wav')
+                bullet_sound.play()
                 pl2_state = 'fire'
         if event.type == pygame.KEYUP:
             # Player 1 Stoppage
@@ -142,6 +156,7 @@ while running:
     Player2_X += Player2X_Change
     Player2_Y += Player2Y_Change
 
+    
     # First Player
     # Limit the x movements to the borderline
     if Player1_X < 5:
@@ -186,10 +201,16 @@ while running:
         bullet1_x += 2
         # we add 32 pixels as half of the player dimension to compare bullet location with center of the player
         collision_text = collision(Player2_X+32, Player2_Y+32, bullet1_x, bullet1_y)
+        if collision_text=='Hit':
+            explosion_sound=mixer.Sound('explosion.wav')
+            explosion_sound.play()
+            # Move bullet outside of the screen, so the hit will be detected only once!
+            bullet1_y=800
+            score_player1=score_player1+1
        
         if bullet1_x > Player2_X:
             pl1_state = 'ready'
-            print("Player 1: The fire status is: " + collision_text)
+            print("Player 1 " + collision_text+", score:"+str(score_player1))
     
      # Player 2: if it is in fire state, bullet should be drawn and its trajectories get updated
     if pl2_state == 'fire':
@@ -197,10 +218,16 @@ while running:
         bullet2_x -= 2
         # we add 32 pixels as half of the player dimension to compare bullet location with center of the player
         collision_text = collision(Player1_X+32, Player1_Y+32, bullet2_x, bullet2_y)
-    
-        if bullet2_x < Player1_X:
+        if collision_text=='Hit':
+            explosion_sound=mixer.Sound('explosion.wav')
+            explosion_sound.play()
+            # Move bullet outside of the screen, so the hit will be detected only once!
+            bullet2_y=800
+            score_player2+=1
+
+        if bullet2_x < Player1_X+60:
             pl2_state = 'ready'
-            print("Player 2: The fire status is: " + collision_text)
+            print("Player 2 " + collision_text+", score:"+str(score_player2))
 
 
     pygame.display.update()
