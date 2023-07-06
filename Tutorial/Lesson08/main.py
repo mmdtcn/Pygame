@@ -17,7 +17,7 @@ mixer.music.load('background.wav')
 mixer.music.play(-1)
 
 # Title and Icon
-pygame.display.set_caption("Space Invader")
+pygame.display.set_caption("Lesson08: Space Invader with one enemy")
 icon = pygame.image.load('spaceship.png')
 pygame.display.set_icon(icon)
 
@@ -28,15 +28,6 @@ playerX = 368
 playerY = 480
 playerX_change = 0
 
-'''
-# Enemy
-enemyImg = []
-enemyX = []
-enemyY = []
-enemyX_change = []
-enemyY_change = []
-num_of_enemies = 20
-'''
 
 enemyImg = pygame.image.load("enemy.png")
 # Setting up the random coordinates for enemy using rand function and range of numbers
