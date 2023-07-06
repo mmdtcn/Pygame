@@ -17,7 +17,7 @@ mixer.music.load('background.wav')
 mixer.music.play(-1)
 
 # Title and Icon
-pygame.display.set_caption("Space Invader")
+pygame.display.set_caption("Space Invader Full Game")
 icon = pygame.image.load('spaceship.png')
 pygame.display.set_icon(icon)
 
