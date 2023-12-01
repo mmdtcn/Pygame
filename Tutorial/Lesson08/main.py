@@ -17,7 +17,7 @@ mixer.music.load('background.wav')
 mixer.music.play(-1)
 
 # Title and Icon
-pygame.display.set_caption("Lesson08: Space Invader with one enemy")
+pygame.display.set_caption("Space Invader with one enemy")
 icon = pygame.image.load('spaceship.png')
 pygame.display.set_icon(icon)
 
@@ -43,7 +43,7 @@ bulletX = 0
 bulletY = 480
 bulletX_change = 0
 bulletY_change = 10
-# Ready: you can't see the bullet on the screen
+# Ready: you don't see the bullet on the screen
 # Fire: the bullet is currently moving
 bullet_state = "ready"
 score_value = 0
@@ -62,14 +62,20 @@ def show_score(x,y):
 def game_over_text():
     over_text=over_font.render("GAME OVER",True, (255,255,255))
     screen.blit(over_text, (200, 250))
-
+    
 def player(x, y):
     screen.blit(playerImg, (x, y))
-
 
 def enemy(x, y):
     screen.blit(enemyImg, (x, y))
 
+
+def isCollision(enemyX,enemyY,bulletX,bulletY):
+    distance = math.sqrt(math.pow(enemyX-bulletX,2)+math.pow(enemyY-bulletY,2))
+    if distance < 25:
+        return True
+    else:
+        return False
 
 def fire_bullet(x, y):
     global bullet_state
@@ -77,19 +83,11 @@ def fire_bullet(x, y):
     screen.blit(bulletImg, (x + 16, y + 10))
 
 
-def isCollision(enemyX, enemyY, bulletX, bulletY):
-    distance = math.sqrt(math.pow(enemyX - bulletX, 2) + math.pow(enemyY - bulletY, 2))
-    if distance < 25:
-        return True
-    else:
-        return False
-
-
 # Game Loop
 while running:
     # RGB: Red, Green, Blue
     screen.fill((0, 0, 0))
-
+    
     # Background
     screen.blit(background, (0, 0))
 
@@ -104,7 +102,7 @@ while running:
                 playerX_change = +5
             if event.key == pygame.K_SPACE:
                 if bullet_state == "ready":
-                    bullet_sound=mixer.Sound('laser.wav')
+                    bullet_sound = mixer.Sound('laser.wav')
                     bullet_sound.play()
                     bulletX = playerX
                     fire_bullet(bulletX, bulletY)
@@ -118,36 +116,39 @@ while running:
         playerX = 1
     elif playerX > 736:
         playerX = 736
-
     
+    enemyX +=enemyX_change
+
+
     # Game Over
-    if enemyY > 440:
-        enemyY=2000
+    if enemyY>240:
+        enemyY = 2000
         game_over_text()
+        pygame.display.update()
+        pygame.time.delay(20)
         break
 
-    enemyX += enemyX_change 
-    if enemyX <= 0:
+    if enemyX<=0:
         enemyX_change = 3
-        enemyY += enemyY_change
-    elif enemyX > 736:
+        enemyY += enemyY_change 
+    elif enemyX>736:
         enemyX_change = -3
-        enemyY += enemyY_change
+        enemyY += enemyY_change 
 
-    # Collision
-    collision = isCollision(enemyX, enemyY, bulletX, bulletY)
+
+    collision = isCollision(enemyX,enemyY,bulletX,bulletY)
     if collision:
         explosion_sound = mixer.Sound('explosion.wav')
         explosion_sound.play()
         bulletY = 480
         bullet_state = "ready"
-        score_value += 1
+        score_value+=1
         print(score_value)
         enemyX = random.randint(0, 800)
         enemyY = random.randint(30, 100)
 
-    enemy(enemyX, enemyY)
-
+    enemy(enemyX,enemyY)
+       
     # Bullet Movement
     if bulletY <= 0:
         bulletY = 480
@@ -158,5 +159,5 @@ while running:
         bulletY -= bulletY_change
 
     player(playerX, playerY)
-    show_score(textX, textY)
+    show_score(textX,textY)
     pygame.display.update()
