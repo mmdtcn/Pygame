@@ -121,7 +121,7 @@ while running:
 
 
     # Game Over
-    if enemyY>240:
+    if enemyY>440:
         enemyY = 2000
         game_over_text()
         pygame.display.update()
